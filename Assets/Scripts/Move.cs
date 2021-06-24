@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class Move : MonoBehaviour
     Vector3 myPosition;
     public LayerMask cajaMov;
     public LayerMask obstaculo;
+    
+    
 
     void Start()
     {
@@ -35,7 +38,6 @@ public class Move : MonoBehaviour
         RaycastHit2D rh;
         RaycastHit2D rhMov;
         RaycastHit2D rhMovObs;
-        
         //Direccion de deteccion
 
         if (myPosition == transform.position)
@@ -54,8 +56,15 @@ public class Move : MonoBehaviour
 
         // Ejecucion del moviminto
 
+        if(myPosition != transform.position)
+        {
+            MoveObj.llego = false;
+        }
+
         if (myPosition == transform.position)
-        {   
+        {
+            MoveObj.llego = true;
+
             if (Input.GetKeyDown(KeyCode.A))
             {
                 if (!rh.collider)
@@ -102,14 +111,6 @@ public class Move : MonoBehaviour
             }
         }
         transform.position = Vector3.MoveTowards(transform.position, myPosition, movPJ * Time.deltaTime);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Obstaculo"))
-        {
-            Debug.Log("hola");
-        }
     }
 
 }

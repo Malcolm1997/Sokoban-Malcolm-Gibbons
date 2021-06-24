@@ -14,7 +14,7 @@ public class MoveObj : MonoBehaviour
     Vector2 dirObj;
     public LayerMask pj;
     public LayerMask Obs;
-
+    public static bool llego = false;
     float movPJ = 2f;
     void Start()
     {
@@ -31,7 +31,7 @@ public class MoveObj : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.D)) dir = Vector2.left;
             if (Input.GetKeyDown(KeyCode.W)) dir = Vector2.down;
             if (Input.GetKeyDown(KeyCode.S)) dir = Vector2.up;
-            
+           
 
         RaycastHit2D rh;
         RaycastHit2D rhObs;
@@ -39,32 +39,35 @@ public class MoveObj : MonoBehaviour
         rhObs = Physics2D.Raycast(position, -dir, 1f, Obs);
 
         // Movimiento del objeto
-        if(rhObs.collider == null)
+
+        if (llego)
         {
-            if (rh.collider != null)
+            if (rhObs.collider == null)
             {
-                if (transform.position.x == position.x && transform.position.y == position.y)
+                if (rh.collider != null)
                 {
-                    if (Input.GetKeyDown(KeyCode.D))
+                    if (transform.position.x == position.x && transform.position.y == position.y)
                     {
-                        position -= dir;
-                    }
-                    else if (Input.GetKeyDown(KeyCode.A))
-                    {
-                        position -= dir;
-                    }
-                    else if (Input.GetKeyDown(KeyCode.S))
-                    {
-                        position -= dir;
-                    }
-                    else if (Input.GetKeyDown(KeyCode.W))
-                    {
-                        position -= dir;
+                        if (Input.GetKeyDown(KeyCode.D))
+                        {
+                            position -= dir;
+                        }
+                        else if (Input.GetKeyDown(KeyCode.A))
+                        {
+                            position -= dir;
+                        }
+                        else if (Input.GetKeyDown(KeyCode.S))
+                        {
+                            position -= dir;
+                        }
+                        else if (Input.GetKeyDown(KeyCode.W))
+                        {
+                            position -= dir;
+                        }
                     }
                 }
             }
-        }
-            
+        }   
         transform.position = Vector2.MoveTowards(transform.position, position, movPJ * Time.deltaTime);
     }
 }
