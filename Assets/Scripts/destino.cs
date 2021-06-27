@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,10 @@ public class destino : MonoBehaviour
     public Color orange  = Color.magenta;
     public Color blue = Color.blue;
     public SpriteRenderer sprite;
-    public static bool destinoLlego; 
+    public static bool destinoLlego;
+    public Color actualColor;
+    public GameObject child;
+    public GameObject padre;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +26,9 @@ public class destino : MonoBehaviour
 
         sprite = GetComponent<SpriteRenderer>();
         position = transform.position;
+        padre = gameObject;
+        child = padre.transform.GetChild(0).gameObject;
+
     }
 
     // Update is called once per frame
@@ -30,12 +37,14 @@ public class destino : MonoBehaviour
         RaycastHit2D rh;
 
         rh = Physics2D.Raycast(position, position, 0, ObjMov);
+        
 
 
         if (rh.collider != null )
         {
             sprite.color = orange;
             destinoLlego = true;
+            Destroy(child);
         }
         else
         {
@@ -43,6 +52,7 @@ public class destino : MonoBehaviour
             destinoLlego = false;
         }
 
+        actualColor = sprite.color;
 
 
 

@@ -14,13 +14,15 @@ public class MoveObj : MonoBehaviour
     Vector2 dirObj;
     public LayerMask pj;
     public LayerMask Obs;
-    public LayerMask objMov;
     public static bool llego = false;
     float movPJ = 2f;
+    
     void Start()
     {
         position = transform.position;
     }
+
+    public 
 
 
     // Update is called once per frame
@@ -36,10 +38,8 @@ public class MoveObj : MonoBehaviour
 
         RaycastHit2D rh;
         RaycastHit2D rhObs;
-        RaycastHit2D rhMov;
         rh = Physics2D.Raycast(position, dir, 1f, pj);
         rhObs = Physics2D.Raycast(position, -dir, 1f, Obs);
-        rhMov = Physics2D.Raycast(position, -dir, 1, objMov);
         // Movimiento del objeto
 
         if (llego)
@@ -72,14 +72,8 @@ public class MoveObj : MonoBehaviour
         }   
         transform.position = Vector2.MoveTowards(transform.position, position, movPJ * Time.deltaTime);
 
-        if (destino.destinoLlego)
-        {
-            transform.position = new Vector3 (transform.position.x,transform.position.y,1);
-        }
-        else
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        }
+
+        
 
     }
 }
